@@ -49,6 +49,13 @@ public class ParkingLot {
         return (capacity - cars.size());
     }
 
+    public double getCurrentParkingSpaceRate(){
+        if (capacity - cars.size() == 0){
+            return 0;
+        }
+        return (capacity - cars.size()) / (capacity * 1.0);
+    }
+
     public int getAvailableParkingPosition() {
         return cars.size() - capacity;
     }
