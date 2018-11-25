@@ -23,11 +23,16 @@ public class ParkingBoy {
 
     public Car fetch(ParkingTicket ticket) {
         // TODO: Please implement the method
-        if(parkingLot.isParkingLotContainsCar(ticket)) {
-            lastErrorMessage = null;
-            return this.parkingLot.pickCar(ticket);
+        if(ticket != null) {
+            if (parkingLot.isParkingLotContainsCar(ticket)) {
+                lastErrorMessage = null;
+                return this.parkingLot.pickCar(ticket);
+            } else {
+                lastErrorMessage = "Unrecognized parking ticket.";
+                return null;
+            }
         }else{
-            lastErrorMessage = "Unrecognized parking ticket.";
+            lastErrorMessage = "Please provide your parking ticket.";
             return null;
         }
     }
