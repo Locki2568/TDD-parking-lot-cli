@@ -31,7 +31,7 @@ public class ParkingLot {
         return cars.get(ticket);
     }
 
-    public boolean isParkingLotContainsCar(Ticket ticket){
+    public boolean isParkingLotContainsCar(ParkingTicket ticket){
         return cars.containsKey(ticket);
     }
 
