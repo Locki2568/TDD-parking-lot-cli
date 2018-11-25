@@ -259,4 +259,27 @@ public class ParkingLotManagerTest {
 
         assertEquals("The parking lot is full.", parkingLotManager.getLastErrorMessage());
     }
+
+    @Test
+    void should_manger_tell_error_msg_when_telling_parking_boy_to_fetch_car_with_wrong_ticket(){
+        final int capacity = 1;
+        ParkingLot parkingLotA = new ParkingLot(capacity);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(parkingLotA);
+        ArrayList<ParkingBoy> parkingBoys = new ArrayList<>();
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLots);
+        parkingBoys.add(superSmartParkingBoy);
+        ParkingLotManager parkingLotManager = new ParkingLotManager(parkingLots, parkingBoys);
+
+        Car randomCar = new Car();
+        // What if two car part have the same space rate?
+        // Current logic should be the first one.
+        parkingLotManager.park(randomCar);
+        Car expectedCar = new Car();
+        parkingLotManager.toldParkingBoyToPark(superSmartParkingBoy, expectedCar);
+        ParkingTicket wrongTicket = new ParkingTicket();
+        parkingLotManager.toldParkingBoyToFetchCar(superSmartParkingBoy, wrongTicket);
+
+        assertEquals("Unrecognized parking ticket.", parkingLotManager.getLastErrorMessage());
+    }
 }
