@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class ParkingBoy {
 
-    private final ArrayList<ParkingLot> parkingLots;
-    private String lastErrorMessage;
+    protected final ArrayList<ParkingLot> parkingLots;
+    protected String lastErrorMessage;
 
     public ParkingBoy(ArrayList<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
@@ -43,7 +43,6 @@ public class ParkingBoy {
     public Car fetch(ParkingTicket ticket) {
         // TODO: Please implement the method
         if(ticket != null) {
-
             if (ticket.getParkingLot() != null && ticket.getParkingLot().isParkingLotContainsCar(ticket)) {
                 ParkingLot parkingLot = ticket.getParkingLot();
                 lastErrorMessage = null;

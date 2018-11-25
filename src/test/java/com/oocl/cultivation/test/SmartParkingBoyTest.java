@@ -6,19 +6,21 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-class TDD_ParkingLotTest {
+public class SmartParkingBoyTest {
     @Test
     void should_park_a_car_to_a_parking_lot_and_get_it_back() {
         //Given
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         Car car = new Car();
         //When
-        ParkingTicket ticket = parkingBoy.park(car);
-        Car fetched = parkingBoy.fetch(ticket);
+        ParkingTicket ticket = smartParkingBoy.park(car);
+        Car fetched = smartParkingBoy.fetch(ticket);
         //Then
         assertSame(fetched, car);
     }
@@ -29,15 +31,15 @@ class TDD_ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         Car firstCar = new Car();
         Car secondCar = new Car();
         //When
-        ParkingTicket firstTicket = parkingBoy.park(firstCar);
-        ParkingTicket secondTicket = parkingBoy.park(secondCar);
+        ParkingTicket firstTicket = smartParkingBoy.park(firstCar);
+        ParkingTicket secondTicket = smartParkingBoy.park(secondCar);
 
-        Car fetchedByFirstTicket = parkingBoy.fetch(firstTicket);
-        Car fetchedBySecondTicket = parkingBoy.fetch(secondTicket);
+        Car fetchedByFirstTicket = smartParkingBoy.fetch(firstTicket);
+        Car fetchedBySecondTicket = smartParkingBoy.fetch(secondTicket);
         //Then
         assertSame(firstCar, fetchedByFirstTicket);
         assertSame(secondCar, fetchedBySecondTicket);
@@ -49,14 +51,14 @@ class TDD_ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         Car car = new Car();
         ParkingTicket wrongTicket = new ParkingTicket();
         //When
-        ParkingTicket ticket = parkingBoy.park(car);
+        ParkingTicket ticket = smartParkingBoy.park(car);
         //Then
-        assertNull(parkingBoy.fetch(wrongTicket));
-        assertSame(car, parkingBoy.fetch(ticket));
+        assertNull(smartParkingBoy.fetch(wrongTicket));
+        assertSame(car, smartParkingBoy.fetch(ticket));
     }
 
     @Test
@@ -65,11 +67,11 @@ class TDD_ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         ParkingTicket wrongTicket = new ParkingTicket();
         //When
-        parkingBoy.fetch(wrongTicket);
-        String message = parkingBoy.getLastErrorMessage();
+        smartParkingBoy.fetch(wrongTicket);
+        String message = smartParkingBoy.getLastErrorMessage();
         //Then
         assertEquals("Unrecognized parking ticket.", message);
     }
@@ -80,15 +82,15 @@ class TDD_ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         ParkingTicket wrongTicket = new ParkingTicket();
 
-        parkingBoy.fetch(wrongTicket);
-        assertNotNull(parkingBoy.getLastErrorMessage());
+        smartParkingBoy.fetch(wrongTicket);
+        assertNotNull(smartParkingBoy.getLastErrorMessage());
 
-        ParkingTicket ticket = parkingBoy.park(new Car());
+        ParkingTicket ticket = smartParkingBoy.park(new Car());
         assertNotNull(ticket);
-        assertNull(parkingBoy.getLastErrorMessage());
+        assertNull(smartParkingBoy.getLastErrorMessage());
     }
 
     @Test
@@ -96,13 +98,13 @@ class TDD_ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         Car car = new Car();
 
-        ParkingTicket ticket = parkingBoy.park(car);
+        ParkingTicket ticket = smartParkingBoy.park(car);
 
-        assertNull(parkingBoy.fetch(null));
-        assertSame(car, parkingBoy.fetch(ticket));
+        assertNull(smartParkingBoy.fetch(null));
+        assertSame(car, smartParkingBoy.fetch(ticket));
     }
 
     @Test
@@ -110,13 +112,13 @@ class TDD_ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
-        parkingBoy.fetch(null);
+        smartParkingBoy.fetch(null);
 
         assertEquals(
                 "Please provide your parking ticket.",
-                parkingBoy.getLastErrorMessage());
+                smartParkingBoy.getLastErrorMessage());
     }
 
     @Test
@@ -124,13 +126,13 @@ class TDD_ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         Car car = new Car();
 
-        ParkingTicket ticket = parkingBoy.park(car);
-        parkingBoy.fetch(ticket);
+        ParkingTicket ticket = smartParkingBoy.park(car);
+        smartParkingBoy.fetch(ticket);
 
-        assertNull(parkingBoy.fetch(ticket));
+        assertNull(smartParkingBoy.fetch(ticket));
     }
 
     @Test
@@ -138,16 +140,16 @@ class TDD_ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         Car car = new Car();
 
-        ParkingTicket ticket = parkingBoy.park(car);
-        parkingBoy.fetch(ticket);
-        parkingBoy.fetch(ticket);
+        ParkingTicket ticket = smartParkingBoy.park(car);
+        smartParkingBoy.fetch(ticket);
+        smartParkingBoy.fetch(ticket);
 
         assertEquals(
                 "Unrecognized parking ticket.",
-                parkingBoy.getLastErrorMessage()
+                smartParkingBoy.getLastErrorMessage()
         );
     }
 
@@ -157,11 +159,11 @@ class TDD_ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(capacity);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
-        parkingBoy.park(new Car());
+        smartParkingBoy.park(new Car());
 
-        assertNull(parkingBoy.park(new Car()));
+        assertNull(smartParkingBoy.park(new Car()));
     }
 
     @Test
@@ -170,38 +172,32 @@ class TDD_ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(capacity);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
-        parkingBoy.park(new Car());
-        parkingBoy.park(new Car());
+        smartParkingBoy.park(new Car());
+        smartParkingBoy.park(new Car());
 
-        assertEquals("The parking lot is full.", parkingBoy.getLastErrorMessage());
+        assertEquals("The parking lot is full.", smartParkingBoy.getLastErrorMessage());
     }
-
-    //Story 3
-    //Given parking boy, parking lot 1 with no position managed by parking boy, parking lot 2 with position managed by parking boy
-    //When parking boy park and fetch car
-    //Then the car fetched should be fetched from parking lot 2.
+    //Story 4
+    //Given: smart parking boy, 2 parking lot with different amount of empty positions
+    //When: smart parking boy park car, he should park the car to the parking lot with more space
+    //Then: the car fetched should be fetched from parking lot with more space.
     @Test
-    void should_parking_boy_park_to_second_parking_lot_if_first_one_is_full(){
-        final int capacity = 1;
+    void should_smart_parking_boy_always_park_car_to_parking_slot_with_more_space(){
+        final int capacity = 5;
         ParkingLot parkingLotA = new ParkingLot(capacity);
         ParkingLot parkingLotB = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLotA);
         parkingLots.add(parkingLotB);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
-        Car carA = new Car();
-        Car carB = new Car();
-        parkingBoy.park(carA);
-        ParkingTicket parkingTicket = parkingBoy.park(carB);
-        ParkingLot actualParkingLot = parkingTicket.getParkingLot();
-        Car actualCar = parkingBoy.fetch(parkingTicket);
+        Car expectedCar = new Car();
+        ParkingTicket parkingTicket = smartParkingBoy.park(expectedCar);
+        Car atualCar = smartParkingBoy.fetch(parkingTicket);
 
-        assertSame(parkingLotB, actualParkingLot);
-        assertSame(carB, actualCar);
+        assertSame(expectedCar, atualCar);
+        assertSame(parkingLotB, parkingTicket.getParkingLot());
     }
-
 }
-
