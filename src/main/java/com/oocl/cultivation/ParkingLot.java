@@ -21,19 +21,19 @@ public class ParkingLot {
     }
 
     public ParkingTicket storeCar(Car car){
-        ParkingTicket parkingTicket = new ParkingTicket(createTicketID());
-        cars.put(parkingTicket, car);
+        ParkingTicket parkingTicket = new ParkingTicket(createTicketID(), this);
+        this.cars.put(parkingTicket, car);
         return parkingTicket;
     }
 
     public Car pickCar(ParkingTicket ticket){
-        Car car = cars.get(ticket);
-        cars.remove(ticket);
+        Car car = this.cars.get(ticket);
+        this.cars.remove(ticket);
         return car;
     }
 
     public boolean isParkingLotContainsCar(ParkingTicket ticket){
-        return cars.containsKey(ticket);
+        return this.cars.containsKey(ticket);
     }
 
     private static String createTicketID()
@@ -45,7 +45,11 @@ public class ParkingLot {
         return ticketID;
     }
 
+    public int getCurrentParkingSpace(){
+        return (capacity - cars.size());
+    }
+
     public int getAvailableParkingPosition() {
-        return capacity - cars.size();
+        return cars.size() - capacity;
     }
 }
