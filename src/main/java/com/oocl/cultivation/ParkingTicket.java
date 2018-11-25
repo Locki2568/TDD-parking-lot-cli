@@ -11,8 +11,4 @@ public class ParkingTicket {
     public ParkingTicket(String ticketID){
         this.ticketID = ticketID;
     }
-
-    public ParkingTicket generateTiecker(){
-        return this;
-    }
 }

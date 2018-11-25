@@ -27,8 +27,9 @@ public class ParkingLot {
     }
 
     public Car pickCar(ParkingTicket ticket){
+        Car car = cars.get(ticket);
         cars.remove(ticket);
-        return cars.get(ticket);
+        return car;
     }
 
     public boolean isParkingLotContainsCar(ParkingTicket ticket){
