@@ -211,28 +211,52 @@ public class ParkingLotManagerTest {
         assertEquals("The parking lot is full.", parkingLotManager.getLastErrorMessage());
     }
     //Story 6
-    //Given: Super smart parking boy, 2 parking lot with different amount of empty positions rate
-    //When: Super smart parking boy park car, he should park the car to the parking lot with more space rate
+    //Given: ParkingLotManager,Super smart parking boy, 2 parking lot with different amount of empty positions rate
+    //When: ParkingLotManager told super smart parking boy park car, he should park the car to the parking lot with more space rate
     //Then: the car fetched should be fetched from parking lot with more space rate.
     @Test
-    void should_super_smart_parking_boy_always_park_car_to_parking_slot_with_more_space_rate(){
+    void should_Manger_told_super_smart_parking_boy_always_park_car_to_parking_slot_with_more_space_rate(){
         final int capacity = 5;
         ParkingLot parkingLotA = new ParkingLot();
         ParkingLot parkingLotB = new ParkingLot(capacity);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLotA);
         parkingLots.add(parkingLotB);
+        ArrayList<ParkingBoy> parkingBoys = new ArrayList<>();
         ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLots);
+        parkingBoys.add(superSmartParkingBoy);
+        ParkingLotManager parkingLotManager = new ParkingLotManager(parkingLots, parkingBoys);
 
         Car randomCar = new Car();
         // What if two car part have the same space rate?
         // Current logic should be the first one.
-        superSmartParkingBoy.park(randomCar);
+        parkingLotManager.park(randomCar);
         Car expectedCar = new Car();
-        ParkingTicket parkingTicket = superSmartParkingBoy.park(expectedCar);
+        ParkingTicket parkingTicket = parkingLotManager.toldParkingBoyToPark(superSmartParkingBoy, expectedCar);
         Car actualCar = superSmartParkingBoy.fetch(parkingTicket);
 
         assertSame(expectedCar, actualCar);
         assertSame(parkingLotB, parkingTicket.getParkingLot());
+    }
+
+    @Test
+    void should_manger_tell_error_msg_when_telling_parking_boy_to_park_car_to_full_parking_lot(){
+        final int capacity = 1;
+        ParkingLot parkingLotA = new ParkingLot(capacity);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(parkingLotA);
+        ArrayList<ParkingBoy> parkingBoys = new ArrayList<>();
+        ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLots);
+        parkingBoys.add(superSmartParkingBoy);
+        ParkingLotManager parkingLotManager = new ParkingLotManager(parkingLots, parkingBoys);
+
+        Car randomCar = new Car();
+        // What if two car part have the same space rate?
+        // Current logic should be the first one.
+        parkingLotManager.park(randomCar);
+        Car expectedCar = new Car();
+        parkingLotManager.toldParkingBoyToPark(superSmartParkingBoy, expectedCar);
+
+        assertEquals("The parking lot is full.", parkingLotManager.getLastErrorMessage());
     }
 }
