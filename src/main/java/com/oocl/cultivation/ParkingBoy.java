@@ -23,6 +23,7 @@ public class ParkingBoy {
 
     public Car fetch(ParkingTicket ticket) {
         // TODO: Please implement the method
+
         if(ticket != null) {
             if (parkingLot.isParkingLotContainsCar(ticket)) {
                 lastErrorMessage = null;
