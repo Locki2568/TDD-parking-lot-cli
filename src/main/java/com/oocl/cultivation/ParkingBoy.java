@@ -16,7 +16,7 @@ public class ParkingBoy {
             lastErrorMessage = null;
             return this.parkingLot.storeCar(car);
         }else{
-            lastErrorMessage = "";
+            lastErrorMessage = "The parking lot is full.";
             return null;
         }
     }
